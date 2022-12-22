@@ -29,11 +29,18 @@ main {
   align-items: center;
 }
 
-label {
+.content {
   max-width: 438px;
   width: 100%;
+  position: relative;
+}
+
+label {
   display: block;
   position: relative;
+}
+label:hover ~ .list {
+  display: block !important;
 }
 label .input {
   width: 100%;
@@ -46,9 +53,6 @@ label .input {
 }
 label .input:hover {
   border: 1px solid #000;
-}
-label .input:hover ~ .list {
-  display: block !important;
 }
 label .input:focus {
   border: 1px solid #30b854;
@@ -63,9 +67,6 @@ label .input-active {
 }
 label .input-active:hover {
   border: 1px solid #f03d3d;
-}
-label .input-active:hover ~ .list {
-  display: block !important;
 }
 label .input-active ~ .title {
   top: 0;
@@ -90,6 +91,10 @@ label .input-valid:hover {
 label .input-valid ~ .error {
   display: none !important;
 }
+label .input-empty ~ .title {
+  top: 50%;
+  color: #858fa6;
+}
 label .title, label .error {
   position: absolute;
   top: 50%;
@@ -104,18 +109,19 @@ label .error {
   left: 92%;
   display: none;
 }
-label .list {
+
+.list {
   display: none;
   position: absolute;
   top: 50%;
-  left: 110%;
+  left: 475px;
   z-index: 10;
   padding: 10px 30px;
   transform: translateY(-50%);
   border: 2px solid #f03d3d;
   border-right: 10px solid #f03d3d;
 }
-label .list::before {
+.list::before {
   content: "";
   height: 20px;
   width: 20px;
@@ -128,38 +134,38 @@ label .list::before {
   z-index: 11;
   transform: rotate(-45deg) translate(-9%, -72%);
 }
-label .list-valid {
+.list-valid {
   border: 2px solid #30b854;
   border-right: 10px solid #30b854;
 }
-label .list-valid::before {
+.list-valid::before {
   border-top: 2px solid #30b854;
   border-left: 2px solid #30b854;
 }
-label .list .item {
+.list .item {
   list-style: none;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
 }
-label .list .item:last-of-type {
+.list .item:last-of-type {
   margin-bottom: 0;
 }
-label .list .item div {
-  display: flex;
+.list .item::before {
+  content: "";
+  background-image: url("./img/check-close.svg");
+  background-repeat: no-repeat;
+  background-position-x: 5%;
+  background-position-y: 50%;
+  height: 20px;
+  width: 20px;
 }
-label .list .item img {
-  margin-right: 10px;
-}
-label .list .item img:nth-of-type(2) {
-  display: none;
-}
-label .list .item span {
+.list .item span {
   white-space: nowrap;
+  padding-left: 10px;
 }
-label .list .item-valid img {
-  display: none;
-}
-label .list .item-valid img:nth-of-type(2) {
-  display: block !important;
+.list .item-valid::before {
+  background-image: url("./img/check-green.svg");
 }
 
 @media (max-width: 1024px) {
@@ -178,12 +184,12 @@ label .list .item-valid img:nth-of-type(2) {
     max-width: 500px;
     margin: 0 auto;
   }
-  label .list {
+  .list {
     left: auto;
     right: 0;
     top: 300%;
   }
-  label .list::before {
+  .list::before {
     left: 40%;
     top: 0;
     transform: rotate(45deg) translate(-6%, -72%);

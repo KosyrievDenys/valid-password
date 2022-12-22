@@ -29,11 +29,20 @@ main {
   align-items: center;
 }
 
-label {
+.content {
   max-width: 438px;
   width:     100%;
-  display:   block;
   position:  relative;
+}
+
+label {
+  display:  block;
+  position: relative;
+  &:hover {
+    ~ .list {
+      display: block !important;
+    }
+  }
   .input {
     width:         100%;
     border:        1px solid #ced2db;
@@ -44,9 +53,6 @@ label {
     transition:    .3s linear;
     &:hover {
       border: 1px solid #000;
-      ~ .list {
-        display: block !important;
-      }
     }
     &:focus {
       border: 1px solid #30b854;
@@ -60,9 +66,6 @@ label {
       border: 1px solid #f03d3d;
       &:hover {
         border: 1px solid #f03d3d;
-        ~ .list {
-          display: block !important;
-        }
       }
       ~ .title {
         top:              0;
@@ -88,6 +91,12 @@ label {
         display: none !important;
       }
     }
+    &-empty {
+      ~ .title {
+        top:   50%;
+        color: #858fa6;
+      }
+    }
   }
   .title, .error {
     position:   absolute;
@@ -103,62 +112,63 @@ label {
     left:    92%;
     display: none;
   }
-  .list {
-    display:      none;
-    position:     absolute;
-    top:          50%;
-    left:         110%;
-    z-index:      10;
-    padding:      10px 30px;
-    transform:    translateY(-50%);
-    border:       2px solid #f03d3d;
-    border-right: 10px solid #f03d3d;
+}
+
+.list {
+  display:      none;
+  position:     absolute;
+  top:          50%;
+  left:         475px;
+  z-index:      10;
+  padding:      10px 30px;
+  transform:    translateY(-50%);
+  border:       2px solid #f03d3d;
+  border-right: 10px solid #f03d3d;
+  &::before {
+    content:          '';
+    height:           20px;
+    width:            20px;
+    border-top:       2px solid #f03d3d;
+    border-left:      2px solid #f03d3d;
+    background-color: #fff;
+    position:         absolute;
+    top:              50%;
+    left:             0;
+    z-index:          11;
+    transform:        rotate(-45deg) translate(-9%, -72%);
+  }
+  &-valid {
+    border:       2px solid #30b854;
+    border-right: 10px solid #30b854;
     &::before {
-      content:          '';
-      height:           20px;
-      width:            20px;
-      border-top:       2px solid #f03d3d;
-      border-left:      2px solid #f03d3d;
-      background-color: #fff;
-      position:         absolute;
-      top:              50%;
-      left:             0;
-      z-index:          11;
-      transform:        rotate(-45deg) translate(-9%, -72%);
+      border-top:  2px solid #30b854;
+      border-left: 2px solid #30b854;
+    }
+  }
+  .item {
+    list-style:    none;
+    margin-bottom: 10px;
+    display:       flex;
+    align-items:   center;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+    &::before {
+      content:               '';
+      background-image:      url('./img/check-close.svg');
+      background-repeat:     no-repeat;
+      background-position-x: 5%;
+      background-position-y: 50%;
+      height:                20px;
+      width:                 20px;
+    }
+    span {
+      white-space: nowrap;
+      padding-left: 10px;
     }
     &-valid {
-      border:       2px solid #30b854;
-      border-right: 10px solid #30b854;
-      &::before {
-        border-top:  2px solid #30b854;
-        border-left: 2px solid #30b854;
-      }
-    }
-    .item {
-      list-style:    none;
-      margin-bottom: 10px;
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-      div {
-        display: flex;
-      }
-      img {
-        margin-right: 10px;
-        &:nth-of-type(2) {
-          display: none;
-        }
-      }
-      span {
-        white-space: nowrap;
-      }
-      &-valid {
-        img {
-          display: none;
-          &:nth-of-type(2) {
-            display: block !important;
-          }
-        }
+      &::before{
+        background-image:      url('./img/check-green.svg');
       }
     }
   }
@@ -182,15 +192,15 @@ label {
   label {
     max-width: 500px;
     margin:    0 auto;
-    .list {
-      left:  auto;
-      right: 0;
-      top:   300%;
-      &::before {
-        left:      40%;
-        top:       0;
-        transform: rotate(45deg) translate(-6%, -72%);
-      }
+  }
+  .list {
+    left:  auto;
+    right: 0;
+    top:   300%;
+    &::before {
+      left:      40%;
+      top:       0;
+      transform: rotate(45deg) translate(-6%, -72%);
     }
   }
 }
